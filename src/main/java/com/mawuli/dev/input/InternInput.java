@@ -1,5 +1,6 @@
-package com.mawuli.dev.entity;
+package com.mawuli.dev.input;
 
+import com.mawuli.dev.entity.Intern;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
@@ -9,25 +10,14 @@ import java.sql.Date;
 import java.sql.Timestamp;
 
 @Entity
-public class Intern {
-    public Intern() {
-    }
-
-    public Intern(Long id, String firstName, String lastName, String school, Date dateOfBirth) {
-        this.id = id;
-        this.firstName = firstName;
-        this.lastName = lastName;
-        this.school = school;
-        this.dateOfBirth = dateOfBirth;
-    }
-
+public class InternInput {
     @Id
     @GeneratedValue(strategy = GenerationType.SEQUENCE)
     private Long id;
     private String firstName;
     private String lastName;
     private String school;
-    private Date dateOfBirth;
+    private String dateOfBirth;
 
     public Long getId() {
         return id;
@@ -61,11 +51,20 @@ public class Intern {
         this.school = school;
     }
 
-    public Date getDateOfBirth() {
+    public String getDateOfBirth() {
         return dateOfBirth;
     }
 
-    public void setDateOfBirth(Date dateOfBirth) {
+    public void setDateOfBirth(String dateOfBirth) {
         this.dateOfBirth = dateOfBirth;
+    }
+
+    public Intern generateIntern() throws Exception {
+        try{
+            Date date = Date.valueOf(dateOfBirth);
+            return new Intern(id, firstName, lastName, school, date);
+        }catch (Exception e){
+            throw new Exception("Invalid Date Format: should be of format Y-d-m");
+        }
     }
 }
