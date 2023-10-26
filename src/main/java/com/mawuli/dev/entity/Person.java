@@ -8,24 +8,18 @@ import java.util.Objects;
 @Table(name = "persons")
 public class Person {
 
-    private String name;
-    private int age;
-
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private long id;
+    private String name;
+    private int age;
 
-
-
-    public Person(String name, int age, long id){
-        this.name = name;
-        this.age = age;
-         this.id = id;
+    public long getId() {
+        return id;
     }
 
-    public Person(){
-
-
+    public void setId(long id) {
+        this.id = id;
     }
 
     public String getName() {
@@ -42,18 +36,6 @@ public class Person {
 
     public void setAge(int age) {
         this.age = age;
-    }
-
-    @Override
-    public boolean equals(Object o) {
-        if (this == o) return true;
-        if (!(o instanceof Person person)) return false;
-        return getAge() == person.getAge() && Objects.equals(getName(), person.getName());
-    }
-
-    @Override
-    public int hashCode() {
-        return Objects.hash(getName(), getAge());
     }
 
     @Override

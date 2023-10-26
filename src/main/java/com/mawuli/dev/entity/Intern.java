@@ -1,97 +1,71 @@
 package com.mawuli.dev.entity;
 
-import jakarta.persistence.*;
+import jakarta.persistence.Entity;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
+import jakarta.persistence.Id;
 
-import java.util.Objects;
+import java.sql.Date;
+import java.sql.Timestamp;
 
 @Entity
-@Table(name = "Intern")
 public class Intern {
-    private String firstName;
-    private String lastName;
-    private String school;
-    private int dateOfBirth;
+    public Intern() {
+    }
 
-
-    @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
-    private long id;
-
-
-
-    public Intern(String firstName, String lastName, String school, long id, int dateOfBirth){
+    public Intern(Long id, String firstName, String lastName, String school, Date dateOfBirth) {
+        this.id = id;
         this.firstName = firstName;
         this.lastName = lastName;
         this.school = school;
         this.dateOfBirth = dateOfBirth;
-        this.id = id;
     }
 
-    public Intern(){
+    @Id
+    @GeneratedValue(strategy = GenerationType.SEQUENCE)
+    private Long id;
+    private String firstName;
+    private String lastName;
+    private String school;
+    private Date dateOfBirth;
 
+    public Long getId() {
+        return id;
+    }
 
+    public void setId(Long id) {
+        this.id = id;
     }
 
     public String getFirstName() {
         return firstName;
     }
 
-    public String getLastName() {
-        return lastName;
-    }
-
-    public String getSchool() {
-        return school;
-    }
-
-    public int getDateOfBirth() {
-        return dateOfBirth;
-    }
-
-    public long getId() {
-        return id;
-    }
-
     public void setFirstName(String firstName) {
         this.firstName = firstName;
+    }
+
+    public String getLastName() {
+        return lastName;
     }
 
     public void setLastName(String lastName) {
         this.lastName = lastName;
     }
 
+    public String getSchool() {
+        return school;
+    }
+
     public void setSchool(String school) {
         this.school = school;
     }
 
-    public void setDateOfBirth(int dateOfBirth) {
+    public Date getDateOfBirth() {
+        return dateOfBirth;
+    }
+
+    public void setDateOfBirth(Date dateOfBirth) {
         this.dateOfBirth = dateOfBirth;
-    }
-
-    public void setId(long id) {
-        this.id = id;
-    }
-
-    @Override
-    public boolean equals(Object o) {
-        if (this == o) return true;
-        if (!(o instanceof Intern model)) return false;
-        return getDateOfBirth() == model.getDateOfBirth() && getId() == model.getId() && Objects.equals(getFirstName(), model.getFirstName()) && Objects.equals(getLastName(), model.getLastName()) && Objects.equals(getSchool(), model.getSchool());
-    }
-
-    @Override
-    public int hashCode() {
-        return Objects.hash(getFirstName(), getLastName(), getSchool(), getDateOfBirth(), getId());
-    }
-
-    @Override
-    public String toString() {
-        return "Model{" +
-                "firstName='" + firstName + '\'' +
-                ", lastName='" + lastName + '\'' +
-                ", school='" + school + '\'' +
-                ", dateOfBirth=" + dateOfBirth +
-                ", id=" + id +
-                '}';
     }
 }
